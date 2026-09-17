@@ -1,4 +1,4 @@
-## Installing Codex CLI for Termux
+## Installing My-Codex for Termux
 
 This package is for Android Termux on ARM64 devices.
 

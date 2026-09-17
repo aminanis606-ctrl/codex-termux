@@ -7,10 +7,10 @@
 > Existing releases remain available and installable.
 > For day-to-day Android/Termux improvements and multi-platform builds, see
 > [codex-vl](https://github.com/DioNanos/codex-vl).
-# Codex Termux
+# My-Codex
 
-> Native Codex CLI for **Termux / Android ARM64**.
-> This fork realigns with selected upstream OpenAI Codex milestones and carries only the Android/Termux compatibility delta needed to package and run it.
+> My-Codex is a native AI coding CLI for **Termux / Android ARM64**.
+> It is based on OpenAI Codex 0.153.3 with the Android/Termux compatibility foundation retained.
 
 [![npm termux](https://img.shields.io/npm/v/@mmmbuto/codex-cli-termux?style=flat-square&logo=npm)](https://www.npmjs.com/package/@mmmbuto/codex-cli-termux)
 [![latest release](https://img.shields.io/github/v/release/DioNanos/codex-termux?style=flat-square)](https://github.com/DioNanos/codex-termux/releases/latest)
@@ -21,7 +21,7 @@
 
 ## Install
 
-### Termux (Android ARM64)
+### My-Codex on Termux (Android ARM64)
 
 ```bash
 pkg update && pkg upgrade -y
@@ -39,9 +39,9 @@ Requirements:
 
 ## Scope
 
-What this fork does:
+What My-Codex currently does:
 
-- realigns with selected upstream OpenAI Codex milestones when an update is worth carrying
+- retains the OpenAI Codex 0.153.3 agent foundation
 - builds native Android ARM64 binaries for Termux
 - applies only the compatibility patches upstream does not ship
 - publishes GitHub release assets and an npm package for Termux users
@@ -49,8 +49,8 @@ What this fork does:
 What this fork does not do:
 
 - maintain a broad feature fork
-- replace upstream Codex
-- carry fork-only product features unrelated to Termux compatibility
+- replace the underlying Codex agent engine
+- introduce unrelated changes merely for branding
 
 ## Current Termux Delta
 
