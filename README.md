@@ -19,6 +19,21 @@
   <img src="./.github/termux-robot.png" alt="Termux robot" width="80%" />
 </p>
 
+## Custom OpenAI-Compatible Providers
+
+My-Codex supports custom OpenAI-compatible providers through `config.toml`:
+
+```toml
+model_provider = "my-provider"
+
+[model_providers.my-provider]
+name = "My Provider"
+base_url = "https://example.com/v1"
+env_key = "MY_PROVIDER_API_KEY"
+```
+
+The provider can then be selected with `model_provider`. The API key is read from the configured environment variable.
+
 ## Install
 
 ### My-Codex on Termux (Android ARM64)
