@@ -497,9 +497,7 @@ impl ModelProviderInfo {
     }
 
     pub fn has_command_auth(&self) -> bool {
-        self.auth.is_some()
-            || self.env_key.is_some()
-            || self.experimental_bearer_token.is_some()
+        self.auth.is_some() || self.env_key.is_some() || self.experimental_bearer_token.is_some()
     }
 }
 
