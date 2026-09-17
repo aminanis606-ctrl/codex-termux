@@ -535,6 +535,27 @@ mod tests {
     }
 
     #[test]
+    fn custom_provider_env_key_adds_bearer_auth() {
+        let mut provider =
+            create_oss_provider_with_base_url("http://localhost:11434/v1", WireApi::Responses);
+        provider.env_key = Some("HOME".to_string());
+
+        let headers = resolve_provider_auth(None, &provider)
+            .expect("auth should resolve")
+            .to_auth_headers();
+
+        let expected = format!(
+            "Bearer {}",
+            std::env::var("HOME").expect("HOME should be set")
+        );
+
+        assert_eq!(
+            headers.get(AUTHORIZATION),
+            Some(&HeaderValue::from_str(&expected).expect("header should be valid"))
+        );
+    }
+
+    #[test]
     fn custom_provider_uses_command_resolved_auth() {
         let mut provider =
             create_oss_provider_with_base_url("http://localhost:11434/v1", WireApi::Responses);
