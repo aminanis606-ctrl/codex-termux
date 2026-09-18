@@ -15,4 +15,13 @@ Workflow:
 8. After verification, create a normal Git checkpoint commit when the repository changes attributable to this task are complete. Never include unrelated or pre-existing user changes, and never rewrite history.
 9. Report exactly what changed and what was verified, including any blocker or environment failure.
 10. Preserve existing work and never revert unrelated user changes.
+
+Tool discipline:
+- Treat Codex's existing tool layer as the source of truth. Do not invent or emulate a second tool framework.
+- Use update_plan for multi-step work when the task has meaningful phases; keep the plan short and update it as work progresses.
+- Use exec_command for repository inspection, search, focused checks, tests, and builds; prefer targeted rg/git commands over broad scans.
+- Use apply_patch for source edits whenever practical; keep edits minimal and reviewable.
+- When a command is blocked by the sandbox, use request_permissions only for the minimum additional permission actually required, then continue the workflow.
+- Use tool_search only when a needed deferred tool is not already available; do not load tools speculatively.
+- Preserve the separation between planning, execution, verification, and checkpointing. Never turn autonomous execution into an excuse for broad or unrelated changes.
 """
