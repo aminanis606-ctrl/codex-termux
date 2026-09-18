@@ -6,8 +6,8 @@
 //!      key. These override or extend the defaults at runtime.
 
 use codex_api::Provider as ApiProvider;
-pub use codex_api::WireApi;
 use codex_api::RetryConfig as ApiRetryConfig;
+pub use codex_api::WireApi;
 use codex_protocol::auth::AuthMode;
 use codex_protocol::config_types::ModelProviderAuthInfo;
 use codex_protocol::error::CodexErr;
