@@ -30,6 +30,19 @@ excluded_targets="$(
 printf '%s\n' \
   "//codex-rs/..." \
   "-//codex-rs/core/tests/remote_env_windows:smoke-test"
+
+# Fork/community CI does not have OpenAI's BuildBuddy RBE credentials.
+# Without remote execution, the code-mode V8 crates force Bazel to build the
+# full V8 + ICU native tree just to run argument-comment-lint. Keep those
+# dedicated V8 targets out of the local fallback while preserving the full
+# upstream target set whenever authenticated RBE is available.
+if [[ -z "${BUILDBUDDY_API_KEY:-}" ]]; then
+  printf '%s\n' \
+    "-//codex-rs/v8-poc:all" \
+    "-//codex-rs/code-mode-runtime:all" \
+    "-//codex-rs/code-mode-host:all"
+fi
+
 if [[ -n "${excluded_targets}" ]]; then
   printf '%s\n' "${excluded_targets}" | sed 's/^/-/'
 fi
