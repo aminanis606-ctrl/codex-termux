@@ -2165,6 +2165,7 @@ mod tests {
     #[test]
     fn webrtc_frameless_sideband_ignores_provider_base_url() {
         let client = RealtimeWebsocketClient::new(Provider {
+            wire_api: crate::provider::WireApi::Responses,
             name: "chatgpt".to_string(),
             base_url: "https://chatgpt.com/backend-api/codex".to_string(),
             query_params: None,
@@ -2361,6 +2362,7 @@ mod tests {
         });
 
         let provider = Provider {
+            wire_api: crate::provider::WireApi::Responses,
             name: "test".to_string(),
             base_url: format!("http://{addr}"),
             query_params: Some(HashMap::new()),
@@ -2687,6 +2689,7 @@ mod tests {
         });
 
         let provider = Provider {
+            wire_api: crate::provider::WireApi::Responses,
             name: "test".to_string(),
             base_url: format!("http://{addr}"),
             query_params: Some(HashMap::new()),
@@ -2814,6 +2817,7 @@ mod tests {
         });
 
         let provider = Provider {
+            wire_api: crate::provider::WireApi::Responses,
             name: "test".to_string(),
             base_url: format!("http://{addr}"),
             query_params: Some(HashMap::new()),
@@ -2920,6 +2924,7 @@ mod tests {
         });
 
         let provider = Provider {
+            wire_api: crate::provider::WireApi::Responses,
             name: "test".to_string(),
             base_url: format!("http://{addr}"),
             query_params: Some(HashMap::new()),
@@ -3012,6 +3017,7 @@ mod tests {
         });
 
         let provider = Provider {
+            wire_api: crate::provider::WireApi::Responses,
             name: "test".to_string(),
             base_url: format!("http://{addr}"),
             query_params: Some(HashMap::new()),

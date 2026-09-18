@@ -60,6 +60,7 @@ where
 
 fn test_provider(base_url: String) -> Provider {
     Provider {
+        wire_api: codex_api::WireApi::Responses,
         name: "test".to_string(),
         base_url,
         query_params: Some(HashMap::new()),

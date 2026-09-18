@@ -118,6 +118,7 @@ mod tests {
 
     fn provider() -> Provider {
         Provider {
+            wire_api: crate::provider::WireApi::Responses,
             name: "test".to_string(),
             base_url: "https://example.com/v1".to_string(),
             query_params: None,

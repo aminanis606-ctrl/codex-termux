@@ -4,7 +4,10 @@ use codex_client::RetryOn;
 use codex_client::RetryPolicy;
 use http::Method;
 use http::header::HeaderMap;
+use schemars::JsonSchema;
+use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
+use std::fmt;
 use std::time::Duration;
 use url::Url;
 
@@ -39,8 +42,44 @@ impl RetryConfig {
 ///
 /// Encapsulates base URL, default headers, query params, retry policy, and
 /// stream idle timeout, plus helper methods for building requests.
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Serialize, JsonSchema)]
+#[serde(rename_all = "lowercase")]
+pub enum WireApi {
+    #[default]
+    Responses,
+    Chat,
+}
+
+impl fmt::Display for WireApi {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let value = match self {
+            Self::Responses => "responses",
+            Self::Chat => "chat",
+        };
+        f.write_str(value)
+    }
+}
+
+impl<'de> Deserialize<'de> for WireApi {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = String::deserialize(deserializer)?;
+        match value.as_str() {
+            "responses" => Ok(Self::Responses),
+            "chat" => Ok(Self::Chat),
+            _ => Err(serde::de::Error::unknown_variant(
+                &value,
+                &["responses", "chat"],
+            )),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct Provider {
+    pub wire_api: WireApi,
     pub name: String,
     pub base_url: String,
     pub query_params: Option<HashMap<String, String>>,
