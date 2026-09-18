@@ -176,14 +176,24 @@ jobs:
         env:
           ARGUMENT_COMMENT_LINT: ${{ needs.changed.outputs.argument_comment_lint }}
           WORKFLOWS: ${{ needs.changed.outputs.workflows }}
+          BUILDBUDDY_API_KEY: ${{ secrets.BUILDBUDDY_API_KEY }}
         run: |
-          if [[ "$ARGUMENT_COMMENT_LINT" == "true" || "$WORKFLOWS" == "true" ]]; then
-            echo "run=true" >> "$GITHUB_OUTPUT"
+          if [[ "$ARGUMENT_COMMENT_LINT" != "true" && "$WORKFLOWS" != "true" ]]; then
+            echo "No argument-comment-lint relevant changes."
+            echo "run=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          echo "No argument-comment-lint relevant changes."
-          echo "run=false" >> "$GITHUB_OUTPUT"
+          # OpenAI's upstream Bazel lint depends on authenticated BuildBuddy RBE.
+          # This fork has no RBE credentials, so do not spend ~30 minutes
+          # building the V8/ICU native graph just to reproduce that check locally.
+          if [[ -z "$BUILDBUDDY_API_KEY" ]]; then
+            echo "BuildBuddy RBE unavailable in fork; skipping prebuilt lint."
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "run=true" >> "$GITHUB_OUTPUT"
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         if: ${{ steps.argument_comment_lint_gate.outputs.run == 'true' }}
         with:
